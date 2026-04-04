@@ -75,10 +75,10 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 
 |  | User Story no | B |
 | --- | --- | --- |
-| 1 | 1 | Basic Search Flow |
-| 2 | 2 | Promotional Codes |
-| 3 | 3 | Link to Home Pages |
-| 4 | 4 | Invalid Return Dates |
+| 1 | Basic Search Flow |
+| 2 | Promotional Codes |
+| 3 | Link to Home Pages |
+| 4 | Invalid Return Dates |
 
 ## 5. Test Approach
 
@@ -124,21 +124,46 @@ Note: Manual testing is executed on Chrome/Mac only. Automated tests run across 
 
 - Manual QA: Vien Bui
 - Automation QA: Vien Bui
-- ​
+  
 
 ### 9. Test cases
 
 
-|  | Story | ID | Test Case | Expected result | Priority | Test Type | G |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Basic Search Flow | BS-001 | Search form displays departure and return fields | 1. Open home page | Departure and Return dropdown fields are visible on the form | P1 | Automation |
-| 2 | Basic Search Flow | BS-002 | Departure dropdown contains only July and December options for next 2 years | 1. Open home page 2. Click Departure dropdown | Options shown: July 2026, December 2026, July 2027, December 2027 | P1 | Automation |
-| 3 | Basic Search Flow | BS-003 | Return dropdown contains only July and December options for next 2 years | 1. Open home page 2. Click Return dropdown | Options shown: July 2026, December 2026, July 2027, December 2027 | P1 | Automation |
-| 4 | Basic Search Flow | BS-004 | Search with available seats shows correct message | 1. Select a valid departure 2. Select a valid return (≥ 1 year from departure) 3. Click Search | "Seats available! Call 0800 MARSAIR to book!" is displayed | P1 | Automation |
-| 5 | Basic Search Flow | BS-005 | Search with no available seats shows correct message | 1. Select departure/return with no seats 2. Click Search | "Sorry, there are no more seats available." is displayed | P1 | Automation |
-| 6 | Basic Search Flow | BS-006 | Departure dropdown does not contain dates beyond 2-year range | 1. Open home page 2. Inspect Departure dropdown options | No options beyond December 2027 are shown | P2 | Automation |
-| 7 | Basic Search Flow | BS-007 | Search without selecting any field shows validation or default behavior | 1. Open home page 2. Click Search without selecting any option | Form does not crash; appropriate message or default behavior shown | P2 | Manual |
-| 8 | ​ | ​ | ​ | ​ | ​ | ​ | ​ |
+> Priority: **P1** = Critical | **P2** = High | **P3** = Medium | **P4** = Low
+> Test Type: **Manual** | **Automation**
+
+| Story | ID | Test Case | Steps | Expected Result | Priority | Test Type | Manual Result | Note |
+|---|---|---|---|---|---|---|---|---|
+| Basic Search Flow | BS-001 | Verify Search form displays | 1. Open home page | Departure and Return dropdown fields are visible on the form | P1 | Automation | Passed | |
+| Basic Search Flow | BS-002 | Verify Departing dropdown values | 1. Open home page<br>2. Click Departing dropdown | Options shown in order: Select..., July, December, July (next year), December (next year), July (two years from now), December (two years from now) | P1 | Automation | Passed | |
+| Basic Search Flow | BS-003 | Verify Returning dropdown values | 1. Open home page<br>2. Click Returning dropdown | Options shown in order: Select..., July, December, July (next year), December (next year), July (two years from now), December (two years from now) | P1 | Automation | Passed | |
+| Basic Search Flow | BS-004 | Verify Search with gap exactly 1 year | 1. Open home page<br>2. Select Departing: July and Returning: July (next year)<br>3. Click Search<br><br>**Data Test:**<br>- Departing: July → Returning: July (next year)<br>- Departing: December → Returning: December (next year)<br>- Departing: July (next year) → Returning: July (two years from now)<br>- Departing: December (next year) → Returning: December (two years from now) | "Sorry, there are no more seats available." is displayed | P1 | Automation | Passed | |
+| Basic Search Flow | BS-005 | Verify Search with gap 1.5 years | 1. Open home page<br>2. Select Departing: July and Returning: December (next year)<br>3. Click Search<br><br>**Data Test:**<br>- Departing: July → Returning: December (next year)<br>- Departing: December → Returning: July (two years from now)<br>- Departing: July (next year) → Returning: December (two years from now) | "Sorry, there are no more seats available." is displayed | P1 | Automation | Passed | |
+| Basic Search Flow | BS-006 | Verify Search with gap 2 years | 1. Open home page<br>2. Select Departing: July and Returning: July (two years from now)<br>3. Click Search<br><br>**Data Test:**<br>- Departing: July → Returning: July (two years from now)<br>- Departing: December → Returning: December (two years from now) | "Sorry, there are no more seats available." is displayed | P1 | Automation | Passed | |
+| Basic Search Flow | BS-007 | Verify Search with gap 2.5 years | 1. Open home page<br>2. Select Departing: July and Returning: December (two years from now)<br>3. Click Search | "Seats available!" and "Call now on 0800 MARSAIR to book!" displayed | P1 | Automation | Passed | Have open Q#2 |
+| Basic Search Flow | BS-008 | Verify Search with date less than 1 year from departure date should show error | 1. Select Departing: **July**<br>2. Select Returning: **December**<br>3. Click Search | "Unfortunately, this schedule is not possible. Please try again." is displayed | P1 | Automation | Passed | |
+| Basic Search Flow | BS-009 | Verify Search without select/input | 1. Open home page<br>2. Do not select Departing/Returning (leave them as "Select...")<br>3. Do not input Promotional Code<br>4. Click Search | Should have error message | P2 | Manual | N/A | No requirement about it. Need to confirm Q#1 |
+| Basic Search Flow | BS-010 | Verify Search without selecting Departing | 1. Open home page<br>2. Do NOT select Departing (leave as "Select..."), select a value for Returning<br>3. Do not input Promotional Code<br>4. Click Search | Should have error message | P2 | Manual | N/A | No requirement about it. Need to confirm Q#1 |
+| Basic Search Flow | BS-011 | Verify Search without selecting Returning | 1. Open home page<br>2. Select value for Departing, do NOT select Returning (leave as "Select...")<br>3. Do not input Promotional Code<br>4. Click Search | Should have error message | P2 | Manual | N/A | No requirement about it. Need to confirm Q#1 |
+| Basic Search Flow | BS-012 | Verify error message shown if Returning is sooner than Departing | 1. Open home page<br>2. Select Departing: **December (next year)**<br>3. Select Returning: **July**<br>4. Click Search | "Unfortunately, this schedule is not possible. Please try again." is displayed | P2 | Manual | Failed | In Progress to log |
+| Basic Search Flow | BS-013 | Same option selected for departure and return shows error | 1. Select Departing: **December**<br>2. Select Returning: **December**<br>3. Click Search | "Unfortunately, this schedule is not possible. Please try again." is displayed | P2 | Automation | Failed | In Progress to log |
+| Promotional Codes | PC-001 | Valid promo code shows discount message alongside seat result | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter promo code: `AF3-FJK-418`<br>4. Click Search | "Seats available!" and "Call now on 0800 MARSAIR to book!" are displayed. "Promotional code AF3-FJK-418 used: 30% discount!" is displayed in red. | P1 | Automation | | |
+| Promotional Codes | PC-002 | Invalid promo code (wrong check digit) shows error alongside seat result | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter promo code: `AF3-FJK-419`<br>4. Click Search | "Seats available!" and "Call now on 0800 MARSAIR to book!" are displayed. "Sorry, code AF3-FJK-419 is not valid" is displayed in red. | P1 | Automation | | |
+| Promotional Codes | PC-003 | Valid promo code with check digit = 0 (sum mod 10 = 0) shows correct discount | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter promo code: `JJ5-OPQ-320`<br>4. Click Search | "Seats available!" is displayed. "Promotional code JJ5-OPQ-320 used: 50% discount!" is displayed in red. | P1 | Automation | | |
+| Promotional Codes | PC-004 | First digit of promo code determines correct discount percentage (20%) | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter a valid code where first digit = 2<br>4. Click Search | "Seats available!" is displayed. Discount shown is 20%. | P1 | Automation | | |
+| Promotional Codes | PC-005 | Promo code without dashes is rejected | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter `AF3FJK418` (no dashes)<br>4. Click Search | "Seats available!" is displayed. "Sorry, code AF3FJK418 is not valid" is displayed in red. | P2 | Automation | | |
+| Promotional Codes | PC-006 | Empty promo code field shows only seat result, no promo message | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Leave promo code field empty<br>4. Click Search | "Seats available!" and "Call now on 0800 MARSAIR to book!" are displayed. No promo or discount message shown. | P2 | Automation | | |
+| Promotional Codes | PC-007 | Promo code accepts lowercase input (case-insensitive) | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter `af3-fjk-418` (lowercase)<br>4. Click Search | "Seats available!" is displayed. "Promotional code af3-fjk-418 used: 30% discount!" is displayed. Note: AC defines format as uppercase only — known bug (BUG-003). | P3 | Manual | Failed | In Progress to log |
+| Promotional Codes | PC-008 | Promo code with special characters is rejected | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter `AF3-FJ!-418`<br>4. Click Search | "Sorry, code AF3-FJ!-418 is not valid" is displayed in red. | P3 | Manual | | |
+| Promotional Codes | PC-009 | Promo code longer than 11 chars (12 chars) is accepted — BUG | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter `AF3-FJK-418A` (12 chars)<br>4. Click Search | **Expected:** "Sorry, code AF3-FJK-418A is not valid"<br>**Actual:** Discount shown — BUG-004 | P2 | Manual | Failed | In Progress to log |
+| Promotional Codes | PC-010 | Promo code of 255 chars is accepted and causes UI overflow — BUG | 1. Select Departing: **July**<br>2. Select Returning: **December (two years from now)**<br>3. Enter `AF3-FJK-418` + 244 'A's (255 chars total)<br>4. Click Search | **Expected:** Input rejected, max length should be 11 chars<br>**Actual:** Discount shown, promo code text overflows result card — BUG-004 | P2 | Manual | | |
+| Promotional Codes | PC-011 | Promo code field does not accept more than 255 chars | 1. Click promo code input field<br>2. Type/paste 256+ chars | Input is truncated at 255 chars — browser enforces maxlength="255" | P3 | Manual | | |
+| Link to Home Page | NAV-001 | "Book a ticket to the red planet now!" CTA is visible on page | 1. Open any page on MarsAir | CTA text "Book a ticket to the red planet now!" is visible and prominent | P1 | Automation | | |
+| Link to Home Page | NAV-002 | Clicking CTA navigates to home page | 1. Navigate to a non-home page<br>2. Click "Book a ticket to the red planet now!" | User is redirected to the home page | P1 | Automation | | |
+| Link to Home Page | NAV-003 | MarsAir logo is visible on top left | 1. Open any page | MarsAir logo is present at top left of the page | P1 | Automation | | |
+| Link to Home Page | NAV-004 | Clicking MarsAir logo navigates to home page | 1. Navigate to a non-home page<br>2. Click MarsAir logo | User is redirected to the home page | P1 | Automation | | |
+| Link to Home Page | NAV-005 | Home page URL is correct after clicking logo or CTA | 1. Click logo or CTA<br>2. Check URL | URL matches the expected home page URL | P1 | Automation | | |
+
 
 ​
 
