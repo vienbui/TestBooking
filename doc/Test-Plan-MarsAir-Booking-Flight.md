@@ -2,15 +2,6 @@
 
 # Test Plan - MarsAir Booking Flight
 
-Draft document
-  
-Engineers/ QA collab
-  
-In-person review
-  
-Test Plan Approved
-  
-Test Plan Executed
 
 ## Approvers
 
@@ -44,8 +35,8 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | --- | --- | --- |
 | 1 | Analyze requirements | 1 |
 | 2 | Create test plan | 1 |
-| 3 | Create test cases | 2 |
-| 4 | Manual test | 1.5 |
+| 3 | Create test cases | 1.5 |
+| 4 | Manual test | 2 |
 | 5 | Implement test cases | 3 |
 | 6 | Total | 8.5 |
 
@@ -112,6 +103,10 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | Environment | Domain | Browser | OS |
 | Production | <https://marsair.recruiting.thoughtworks.net/VienBui> | Chrome | Mac |
 
+Note: Manual testing is executed on Chrome/Mac only. Automated tests run across Chrome, Firefox, and Safari (WebKit) via Playwright to verify cross-browser UI consistency per requirements.
+
+
+
 ### 7. Entry and Exit criteria
 
 #### Entry criteria
@@ -133,6 +128,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 
 ### 9. Test cases
 
+
 |  | Story | ID | Test Case | Expected result | Priority | Test Type | G |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Basic Search Flow | BS-001 | Search form displays departure and return fields | 1. Open home page | Departure and Return dropdown fields are visible on the form | P1 | Automation |
@@ -148,8 +144,14 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 
 ### 10. Highlighted issues
 
-Please refer to
+Please refer to 
 
 ### 11. Open questions
-
+1. What is expected result if user does not select Departing and Returning (keep them as "Select...") but clicking Search? ( disabled Search button?/ error message appears on this form to request input value one user clicks Search?). Currently, system allows to search and show "No more seats available" is not make sense.
+2. Do we allow for one-way flight? Mean that user search with Departing but without Returning? If not, what is the expected result?
+3. AC says "Trips for the next two years should be searchable", how about exeed 2 years behavior? Is this a valid combination? Or system should prevent and show error ( combine: Departing: July and Returning: December (two years from now)
+4. When user inputs the valid promo code but the search returns that no seat is available, currently, discount message is not displayed. Is this expected or bug?
+5. When user input valid promo code, but does not select Departing/Returning ( keep them as "Select..."), which one is validated first: promo code or available seat?
+6. Spec said "Seats available! Call 0800 MARSAIR to book!" but UI shows 2 lines for it. Is this a UI bug?
+7. 
 ​
