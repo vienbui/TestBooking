@@ -1,5 +1,6 @@
 import { test, expect } from '../src/fixture/pageFixtures';
 import { PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_1_5_YEAR_SELECT_RANGE,PERIOD_1_YEAR_SELECT_RANGE, PERIOD_2_YEAR_SELECT_RANGE } from '../src/data/selectRange';
+import { VALID_PROMO_CODES,INVALID_PROMO_CODES } from '../src/data/promo.data';
 
 test.describe('Search Flight', () => {
 
@@ -114,4 +115,83 @@ test.describe('Navigation', () => {
     })
 }
 )
+
+test.describe('Promotional Code', () => {
+    test.beforeEach(async ({ homePage }) => {
+        await homePage.navigateToHomePage();
+    });
+
+    //PC-001: Verify system validates with valid promotional code
+    test(`[PC-001] Verify valid promotional code is applied`, async ({ homePage }) => {
+        const {code, discount} = VALID_PROMO_CODES[0];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
+        await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
+        console.log(await homePage.searchResultComponent.promotionalCodeMessage.innerText());  
+    })
+
+    //PC-002: Verify system validates with invalid wrong check digit promotional code
+    test(`[PC-002] Verify system validates with invalid wrong check digit promotional code`, async ({ homePage }) => {
+        const {code, reason} = INVALID_PROMO_CODES[0];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifyInvalidPromotionalCodeMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+    })
+
+    //PC-003: Verify that Search result shows correct discount for valid promo code with check digit = 0 (sum mod 10 = 0) 
+    test(`[PC-003] Verify promo code is applied with check digit = 0`, async ({ homePage }) => {
+        test.fail(true, 'BUG#6: System shows code is not valid even user inputs valid promo code with check digit=0  JJ5-OPQ-321');  
+        const {code, discount} = VALID_PROMO_CODES[5];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
+        await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
+    })
+
+    //PC-004: Verify that system validates the first digit and shows as discount percentage
+    for (const { code, discount } of VALID_PROMO_CODES.slice(0, 3)) {
+    test(`[PC-004] Promo code first digit ${code[2]} shows ${discount}% discount`, async ({ homePage }) => {
+        const {code, discount} = VALID_PROMO_CODES[0];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
+       })
+    }
+
+    //PC-005: Verify that system validates promo code without dashes as invalid one
+    test(`[PC-005] Verify that system validates promo code without dashes as invalid one`, async ({ homePage }) => {
+        const {code, reason} = INVALID_PROMO_CODES[1];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifyInvalidPromotionalCodeMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+    })
+
+    //PC-006: Verify that search can perform sucessfully without input promo code
+    test(`[PC-006] Verify that search can perform sucessfully without input promo code`, async ({ homePage }) => {
+        await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, '');
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
+        await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        await homePage.searchResultComponent.verifyPromoAppliedMessageIsNotVisible();
+        await homePage.searchResultComponent.verifyPromoInvalidMessageIsNotVisible();
+    })
+
+
+    //PC-008: Verify system validates with invalid promotional code with special characters
+    test(`[PC-008] Verify system validates with invalid promotional code with special characters`, async ({ homePage }) => {
+        test.fail(true, 'BUG#7: Should not accept Promo code containing special characters')
+        const {code, reason} = INVALID_PROMO_CODES[2];
+        await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifyInvalidPromotionalCodeMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+    })
+})
 
