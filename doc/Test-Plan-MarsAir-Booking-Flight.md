@@ -191,6 +191,7 @@ Please refer to [https://marsair.recruiting.thoughtworks.net/VienBui/issues](htt
 7. The spec only mention "Promotional codes are in the format XX9-XXX-999", but does not indicate what is max lengh for Promotional Code textbox field. I have inspected the API by Dev tool -Elements and the textbox field has "maxlength"=255. So, what is the maxlength for this, 255 ( from HTML design) or 11 ( from Promotional code example in spec)?
 8. All available combination do not return available seats except July → December (two years from now), is it expected behavior because of data test limatation or something else?
 9. Spec said "Seats available! Call 0800 MARSAIR to book!" but UI shows 2 lines for it. Is this a UI bug?
+10. I inspect Dev Tool - Network and observe that the search API is currently using POST endpoint. I would like to confirm why we don't use GET? The reason I ask is GET endpoint seems like to be aligned more with REST best practises. Is there any reason we are using POST?
 
 
 
