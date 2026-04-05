@@ -7,6 +7,10 @@ export class HomePageLocators {
     readonly departingDropdown: Locator;
     readonly returningDropdown: Locator;
     readonly searchButton: Locator;
+    readonly promoCodeInput: Locator;
+    readonly reportIssueLink: Locator;
+    readonly problemDefinitionLink: Locator;
+    readonly privacyPolicyLink: Locator;
 
 
 
@@ -16,7 +20,11 @@ export class HomePageLocators {
         this.welcomeMessage = page.getByText('Welcome to MarsAir!');
         this.departingDropdown = page.getByRole('combobox', { name: 'Departing' });
         this.returningDropdown = page.getByRole('combobox', { name: 'Returning' });
+        this.promoCodeInput = page.locator('input[name="promotional_code"]');
         this.searchButton = page.getByRole('button', { name: 'Search' });
+        this.reportIssueLink = page.getByRole('link', { name: 'Report an issue' }); 
+        this.problemDefinitionLink = page.getByRole('link', { name: 'Problem definition' });
+        this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy Policy' });
     }
 }
 
