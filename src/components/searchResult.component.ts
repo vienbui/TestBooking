@@ -5,6 +5,7 @@ export class SearchResultComponent {
     readonly seatsAvailableMessage: Locator;
     readonly callNowMessage: Locator;
     readonly noSeatsAvailableMessage: Locator;
+    readonly invalidReturnDateMessage: Locator;
     readonly promotionalCodeMessage: Locator;
     readonly invalidPromotionalCodeMessage: Locator;
     readonly backButton: Locator;
@@ -16,6 +17,7 @@ export class SearchResultComponent {
         this.noSeatsAvailableMessage = page.getByText('Sorry, there are no more seats available.');
         this.promotionalCodeMessage = page.getByText('Promotional code [code] used: [discount]% discount!');
         this.invalidPromotionalCodeMessage = page.getByText('Sorry, code [invalid promo code] is not valid');
+        this.invalidReturnDateMessage = page.getByText('Unfortunately, this schedule is not possible. Please try again.');
         this.backButton = page.getByRole('link', { name: 'Back' }); 
 
     }
@@ -33,6 +35,10 @@ export class SearchResultComponent {
 
     async verifyNoSeatsAvailableMessageIsVisible(){
         await expect(this.noSeatsAvailableMessage).toBeVisible();
+    }
+
+    async verifyInvalidReturnDateMessageIsVisible(){
+        await expect(this.invalidReturnDateMessage).toBeVisible();
     }
     
     async verifyPromotionalCodeMessageIsVisible(){

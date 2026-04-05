@@ -39,6 +39,7 @@ export class HomePage {
 
     async verifyPrivacyPolicyLinkIsVisible(){
         await expect(this.homePageComponent.privacyPolicyLink).toBeVisible();
-    }   
+    }  
+    
 }
     
