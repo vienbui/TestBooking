@@ -1,6 +1,7 @@
 import {Locator, Page, expect} from '@playwright/test'
 
 export class SearchFormComponent {
+    readonly page: Page;
     readonly welcomeMessage: Locator;
     readonly bookTicketNowMessage: Locator;
     readonly departingDropdown: Locator;
@@ -9,6 +10,7 @@ export class SearchFormComponent {
     readonly searchButton: Locator;
 
     constructor(page:Page){
+        this.page = page;
         this.welcomeMessage = page.getByText('Welcome to MarsAir!');
         this.bookTicketNowMessage = page.getByText('Book a ticket to the red planet now!');
         this.departingDropdown = page.getByRole('combobox', { name: 'Departing' });
@@ -85,5 +87,13 @@ export class SearchFormComponent {
         await this.returningDropdown.selectOption(returning);
         await this.searchButton.click();
     }
+
+    async searchFlightWithPromoCode(departing: string, returning: string, promoCode: string){
+        await this.departingDropdown.selectOption(departing);
+        await this.returningDropdown.selectOption(returning); 
+        await this.promoCodeInput.fill(promoCode);
+        await this.searchButton.click();
+    }
+
 };
 
