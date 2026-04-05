@@ -104,7 +104,7 @@ test.describe('Navigation', () => {
     })
 
     //NAV-007: Verify clicking on "Back" link in Search Result screen will redirect to Search Form
-    test(`[NAV-008] Verify clicking on "Back" link in Search Result screen`, async ({ homePage }) => {
+    test(`[NAV-007] Verify clicking on "Back" link in Search Result screen`, async ({ homePage }) => {
         await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning);
         await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
         await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
@@ -130,7 +130,6 @@ test.describe('Promotional Code', () => {
         await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
         await homePage.searchResultComponent.verifyBackButtonIsVisible();
         await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
-        console.log(await homePage.searchResultComponent.promotionalCodeMessage.innerText());  
     })
 
     //PC-002: Verify system validates with invalid wrong check digit promotional code
@@ -157,7 +156,6 @@ test.describe('Promotional Code', () => {
     //PC-004: Verify that system validates the first digit and shows as discount percentage
     for (const { code, discount } of VALID_PROMO_CODES.slice(0, 3)) {
     test(`[PC-004] Promo code first digit ${code[2]} shows ${discount}% discount`, async ({ homePage }) => {
-        const {code, discount} = VALID_PROMO_CODES[0];
         await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
         await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
        })
@@ -174,7 +172,7 @@ test.describe('Promotional Code', () => {
 
     //PC-006: Verify that search can perform sucessfully without input promo code
     test(`[PC-006] Verify that search can perform sucessfully without input promo code`, async ({ homePage }) => {
-        await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, '');
+        await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning);
         await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
         await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
         await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
