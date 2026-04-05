@@ -1,5 +1,5 @@
 import { test, expect } from '../src/fixture/pageFixtures';
-import { PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_1_5_YEAR_SELECT_RANGE,PERIOD_1_YEAR_SELECT_RANGE } from '../src/data/selectRange';
+import { PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_1_5_YEAR_SELECT_RANGE,PERIOD_1_YEAR_SELECT_RANGE, PERIOD_2_YEAR_SELECT_RANGE } from '../src/data/selectRange';
 
 test.describe('Search Flight', () => {
 
@@ -11,7 +11,7 @@ test.describe('Search Flight', () => {
     test('[BS-001]Verify home page is loaded with all elements visible', async ({homePage}) => {
         await test.step('Header and navigation links', async () => {
             await homePage.verifyHomePageIsLoaded();
-            
+
             await homePage.verifyHeaderLogoIsVisible();
             await homePage.verifyReportIssueLinkIsVisible();
             await homePage.verifyProblemDefinitionLinkIsVisible();
@@ -50,6 +50,25 @@ test.describe('Search Flight', () => {
         });
     }
 
+    // BS-005: Verify system validates with period is 1.5 years
+    for (const {departing, returning} of PERIOD_1_5_YEAR_SELECT_RANGE){
+        test(`[BS-005] Verify system validates with period is 1.5 years - ${departing} to ${returning}`, async ({ homePage }) => {
+            await homePage.searchFormComponent.searchFlight(departing, returning);
+            await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+            await homePage.searchResultComponent.verifyNoSeatsAvailableMessageIsVisible();
+            await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        })
+    }       
+
+    // BS-006: Verify system validates with period is 2 years
+    for (const {departing, returning} of PERIOD_2_YEAR_SELECT_RANGE){
+        test(`[BS-006] Verify system validates with period is 2 years - ${departing} to ${returning}`, async ({ homePage }) => {
+            await homePage.searchFormComponent.searchFlight(departing, returning);
+            await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+            await homePage.searchResultComponent.verifyNoSeatsAvailableMessageIsVisible();
+            await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        })
+    }
 
     // BS-007: Verify system validates for available seat once user searches with period is more than 2 years
     test('[BS-007] Verify system validates with period is more than 2 years', async ({ homePage}) => {
