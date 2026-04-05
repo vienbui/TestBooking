@@ -8,9 +8,9 @@
 |  |  |  |  |  |
 | --- | --- | --- | --- | --- |
 | Approvers | Role | Date | Approved | Notes |
-| <Engineer Manager approval> | ​ | ​ | ​ | ​ |
-| <Tech Lead approval> | ​ | ​ | ​ | ​ |
-| <PM approval> | ​ | ​ | ​ | ​ |
+| \<Engineer Manager approval\> | ​ | ​ | ​ | ​ |
+| \<Tech Lead approval> | ​ | ​ | ​ | ​ |
+| \<PM approval> | ​ | ​ | ​ | ​ |
 | ​ | ​ | ​ | ​ | ​ |
 
 ## 1. Overview
@@ -27,7 +27,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | --- | --- | --- | --- | --- | --- |
 | ​ | 4/2/2026 | 4/3/2026 | 4/4/2026 | 4/5/2026 | 4/6/2026 |
 | Dev | Application is ready for testing | ​ | ​ | ​ | ​ |
-| QA | ​ | QA received email with requirements | - Analyze requirements - Create test plan - Init project repo - Create test cases | - Manual test - Implement automations test cases - Write README.md | - Reply email with results |
+| QA | ​ | QA received email with requirements | - Analyze requirements and raise open questions <br> - Create test plan <br> - Init project repo and Playwright setup <br> - Create test cases | - Manual test and log issues <br> - Implement automation test cases <br> - Write README.md | - Send test report <br> - Reply email with results |
 
 ### Estimation (High Level)
 
@@ -178,5 +178,5 @@ Please refer to
 4. When user inputs the valid promo code but the search returns that no seat is available, currently, discount message is not displayed. Is this expected or bug?
 5. When user input valid promo code, but does not select Departing/Returning ( keep them as "Select..."), which one is validated first: promo code or available seat?
 6. Spec said "Seats available! Call 0800 MARSAIR to book!" but UI shows 2 lines for it. Is this a UI bug?
-7. 
+   
 ​
