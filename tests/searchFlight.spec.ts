@@ -19,12 +19,8 @@ test.describe('Search Flight', () => {
         });
 
         await test.step('Search form elements', async () => {
-            await homePage.searchFormComponent.verifyWelcomeMessageIsVisible();
-            await homePage.searchFormComponent.verifyBookTicketNowMessageIsVisible();
-            await homePage.searchFormComponent.verifySelectDepartingOptionIsVisible();
-            await homePage.searchFormComponent.verifySelectReturningOptionIsVisible();
-            await homePage.searchFormComponent.verifyPromoCodeInputIsVisible();
-            await homePage.searchFormComponent.verifySearchButtonIsVisible();
+            await homePage.searchFormComponent.verifySearchFormIsVisible();
+            await homePage.searchFormComponent.verifyDefaultValue();
         })
     });
 
@@ -91,4 +87,31 @@ test.describe('Search Flight', () => {
     }
     
 });
+
+test.describe('Navigation', () => {
+    test.beforeEach(async ({ homePage }) => {
+        await homePage.navigateToHomePage();
+    });
+
+    //NAV-004: Verify that clicking MarsAir logo navigates to home page once user is not in the Home page
+    test(`[NAV-004] Verify clicking on MarsAir logo`, async ({ homePage }) => {
+        await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.homePageComponent.clickLogo();
+        await homePage.searchFormComponent.verifySearchFormIsVisible();
+        await homePage.searchFormComponent.verifyDefaultValue();
+    })
+
+    //NAV-007: Verify clicking on "Back" link in Search Result screen will redirect to Search Form
+    test(`[NAV-008] Verify clicking on "Back" link in Search Result screen`, async ({ homePage }) => {
+        await homePage.searchFormComponent.searchFlight(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning);
+        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+        await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
+        await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
+        await homePage.searchResultComponent.verifyBackButtonIsVisible();
+        await homePage.searchResultComponent.clickBackButton();
+        await homePage.searchFormComponent.verifySearchFormIsVisible();
+    })
+}
+)
 

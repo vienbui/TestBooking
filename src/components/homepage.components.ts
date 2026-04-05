@@ -12,5 +12,9 @@ export class HomePageComponent {
         this.problemDefinitionLink = page.getByRole('link', { name: 'Problem definition' });
         this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy Policy' });
     }
+
+    async clickLogo(){
+        await this.marsAirHeaderLogo.click();
+    }
 }
 

@@ -24,6 +24,7 @@ export class SearchFormComponent {
     async verifyBookTicketNowMessageIsVisible(){
         await expect(this.bookTicketNowMessage).toBeVisible();
     }
+
     async verifySelectDepartingOptionIsVisible(){
         await expect(this.departingDropdown).toBeVisible();
     }
@@ -38,6 +39,21 @@ export class SearchFormComponent {
 
     async verifyPromoCodeInputIsVisible(){
         await expect(this.promoCodeInput).toBeVisible();
+    }
+
+    async verifySearchFormIsVisible(){
+        await expect(this.welcomeMessage).toBeVisible();
+        await expect(this.bookTicketNowMessage).toBeVisible();
+        await expect(this.departingDropdown).toBeVisible();
+        await expect(this.returningDropdown).toBeVisible();
+        await expect(this.promoCodeInput).toBeVisible();
+        await expect(this.searchButton).toBeVisible();
+    }
+
+    async verifyDefaultValue(){
+        await expect(this.departingDropdown).toHaveValue('');
+        await expect(this.returningDropdown).toHaveValue('');
+        await expect(this.promoCodeInput).toHaveValue('');
     }
 
     async verifyAllDepartingOptionsAreVisible(){
