@@ -1,13 +1,20 @@
 import { expect, Page } from '@playwright/test';
-import { HomePageLocators } from '../locators/homepage.locator';
+import { HomePageComponent } from '../components/homepage.components';
+import { SearchFormComponent } from '../components/searchForm.component';
+import { SearchResultComponent } from '../components/searchResult.component';
 
 export class HomePage {
     readonly page: Page;
-    readonly locators: HomePageLocators;
+    readonly homePageComponent: HomePageComponent;
+    readonly searchFormComponent: SearchFormComponent;
+    readonly searchResultComponent: SearchResultComponent;
 
     constructor(page: Page){
         this.page = page;
-        this.locators = new HomePageLocators(page);
+        this.homePageComponent = new HomePageComponent(page);
+        this.searchFormComponent = new SearchFormComponent(page);
+        this.searchResultComponent = new SearchResultComponent(page);
+
     }
 
     async navigateToHomePage(){
@@ -19,65 +26,19 @@ export class HomePage {
     }
 
     async verifyHeaderLogoIsVisible(){
-        await expect(this.locators.marsAirHeaderLogo).toBeVisible();
-    }
-
-    async verifySelectDepartingOptionIsVisible(){
-        await expect(this.locators.departingDropdown).toBeVisible();
-    }
-
-    async verifySelectReturningOptionIsVisible(){
-        await expect(this.locators.returningDropdown).toBeVisible();
-    }
-
-    async verifySearchButtonIsVisible(){
-        await expect(this.locators.searchButton).toBeVisible();
-    }
-
-    async verifyPromoCodeInputIsVisible(){
-        await expect(this.locators.promoCodeInput).toBeVisible();
+        await expect(this.homePageComponent.marsAirHeaderLogo).toBeVisible();
     }
 
     async verifyReportIssueLinkIsVisible(){
-        await expect(this.locators.reportIssueLink).toBeVisible();
+        await expect(this.homePageComponent.reportIssueLink).toBeVisible();
     }
 
     async verifyProblemDefinitionLinkIsVisible(){
-        await expect(this.locators.problemDefinitionLink).toBeVisible();
+        await expect(this.homePageComponent.problemDefinitionLink).toBeVisible();
     }
 
     async verifyPrivacyPolicyLinkIsVisible(){
-        await expect(this.locators.privacyPolicyLink).toBeVisible();
+        await expect(this.homePageComponent.privacyPolicyLink).toBeVisible();
     }   
-
-    async verifyBookTicketNowMessageIsVisible(){
-        await expect(this.locators.bookTicketNowMessage).toBeVisible();
-    }
-
-    async verifyWelcomeMessageIsVisible(){
-        await expect(this.locators.welcomeMessage).toBeVisible();
-    }
-
-    async verifyAllDepartingOptionsAreVisible(){
-        await expect(this.locators.departingDropdown.locator('option')).toHaveText([
-            'Select...',
-            'July',
-            'December',
-            'July (next year)',
-            'December (next year)',
-            'July (two years from now)',
-            'December (two years from now)',
-        ]);
-    }
-
-    async verifyAllReturningOptionsAreVisible(){
-        await expect(this.locators.returningDropdown.locator('option')).toHaveText([
-            'Select...',
-            'July',
-            'December',
-            'July (next year)',
-            'December (next year)',
-            'July (two years from now)',
-            'December (two years from now)',
-        ]);
-    }}
+}
+    
