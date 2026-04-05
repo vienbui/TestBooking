@@ -19,6 +19,7 @@ export class SearchResultLocators {
         
         this.searchResultTitle = page.getByRole('heading', { name: 'Search Results' });
         this.seatsAvailableMessage = page.getByText('Seats available');
+        this.callNowMessage = page.getByText('Call now on 0800 MARSAIR to book!');
         this.noSeatsAvailableMessage = page.getByText('Sorry, there are no more seats available.');
         this.promotionalCodeMessage = page.getByText('Promotional code [code] used: [discount]% discount!');
         this.invalidPromotionalCodeMessage = page.getByText('Sorry, code [invalid promo code] is not valid');

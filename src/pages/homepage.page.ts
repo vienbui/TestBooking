@@ -80,9 +80,4 @@ export class HomePage {
             'July (two years from now)',
             'December (two years from now)',
         ]);
-    }   
-
-    
-    
-}
-
+    }}
