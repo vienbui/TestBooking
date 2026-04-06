@@ -40,12 +40,8 @@ This section responds to the exercise requirement to describe how the applicatio
 2. **Test Planning** <br> - After analyzed requirements, I started to draft the test plan   ([doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md)) with scope, testing timeline, test types, environments <br> - Once I have a draft of test plan, I started to create test cases based on Acceptance criteria of each user story and the out come is a test case matrix ( priority, test type: manual/automation, test data). <br> - I used some test design techniques to define the test cases such as boundary value analysis andEquivalence partitioning techniques  ( apply to flight schedule validation, tested varios period less than 1 year, exactly 1 year, 1.5 years, 2 years and over 2 years) to ensure correct behavior at and around boundary. I also used Exploratory technique to explore edge cases not cover in the spec. 
 3. **Exploration Testing** <br> - After phase 2, I started to manual test and fill result to the list of test cases based on their priority. I also found some issues and logged them in the app’s **Report an issue**   area. <br> - I also tracked the bug list under section #10 Highlight issues in the test plan.
 4. **Automation Strategy** <br> - I started to initial project and repo, using TypeScript and Playwright <br> - I defined the framework with page object model style layout for easier maintainability: pages compose components; fixtures inject homePage; data modules drive parameterized cases (date ranges in selectRange.ts, promo lists in promo.data.ts). <br> - P1 test cases were automated first <br> - Test cases that have known defects, I used test.fail() to  document and track them. 
-5. **CI** <br> - GitHub Actions runs `npm ci`, installs browsers, and executes `npx playwright test`, uploading the HTML report as an artifact.
-   
-### Test approach (summary)
-- Functional coverage against acceptance criteria  
-- Boundary and negative cases (dates, promo codes)  
-- UI/navigation: logo, back from results 
+5. **CI** <br> - Use default value. GitHub Actions runs `npm ci`, installs browsers, and executes `npx playwright test`, uploading the HTML report as an artifact.
+
 
 ### Prerequisites
 - Node.js (LTS recommended)  
@@ -87,9 +83,9 @@ On push or pull request to `main` or `master`, `.github/workflows/playwright.yml
 ### Documentation
 | Document | Description |
 | -------- | ----------- |
-| [doc/requirement.md](doc/requirement.md) | Exercise format and deliverables |
-| [doc/spec.md](doc/spec.md) | Backstory and user stories |
-| [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) | Full test plan and case matrix |
+| [doc/requirement.md](doc/requirement.md) | Exercise format and deliverables, described in Email |
+| [doc/spec.md](doc/spec.md) | Backstory and user stories, described in Problem Definition  |
+| [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) |  Test plan and test case matrix, test case results |
 
 ### Author
 Vien Bui
