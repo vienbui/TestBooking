@@ -180,6 +180,8 @@ Note: Manual testing is executed on Chrome/Mac only. Automated tests run across 
 
 Please refer to [https://marsair.recruiting.thoughtworks.net/VienBui/issues](https://marsair.recruiting.thoughtworks.net/VienBui/issues)
 
+![Bug List](image/bugList.png)
+
 ### 11. Open questions
 
 1. What is expected result if user does not select Departing and Returning (keep them as "Select...") but clicking Search? ( disabled Search button?/ error message appears on this form to request input value one user clicks Search?). Currently, system allows to search and show "No more seats available" is not make sense.
