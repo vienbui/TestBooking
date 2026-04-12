@@ -1,6 +1,6 @@
-import { test, expect } from '../src/fixture/pageFixtures';
+import { test, expect } from '../../src/fixture/pageFixtures';
 import AxeBuilder from '@axe-core/playwright';
-import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../src/data/selectRange';
+import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
 
 test.describe('Accessibility', () => {
 

@@ -1,5 +1,5 @@
-import { test, expect } from '../src/fixture/pageFixtures';
-import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../src/data/selectRange';
+import { test, expect } from '../../src/fixture/pageFixtures';
+import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
 
 const PERF_THRESHOLDS = {
     ttfb: 1500,
