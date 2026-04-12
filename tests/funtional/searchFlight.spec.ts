@@ -184,7 +184,7 @@ test.describe('Promotional Code', () => {
 
     //PC-008: Verify system validates with invalid promotional code with special characters
     test(`[PC-008] Verify system validates with invalid promotional code with special characters`, async ({ homePage }) => {
-        test.fail(true, 'BUG#7: Should not accept Promo code containing special characters')
+        // test.fail(true, 'BUG#7: Should not accept Promo code containing special characters')
         const {code, reason} = INVALID_PROMO_CODES[2];
         await homePage.searchFormComponent.searchFlightWithPromoCode(PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning, code);
         await homePage.searchResultComponent.verifySearchResultTitleIsVisible();

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "demo": "rm -rf allure-results && npx playwright test && cp categories.json allure-results/ && npx allure serve allure-results",
+    "demo": "npm run allure:clean && PLAYWRIGHT_HTML_OPEN=never npx playwright test; npm run allure:prepare && npx allure serve allure-results",
+    "allure:clean": "mkdir -p allure-history && cp -r allure-report/history/* allure-history/ 2>/dev/null; rm -rf allure-results allure-report; true",
+    "allure:prepare": "mkdir -p allure-results/history && cp -r allure-history/* allure-results/history/ 2>/dev/null; cp categories.json allure-results/; true",
     "test:chromium": "npm run clean && npx playwright test --project=chromium"
   },
   "keywords": [],
