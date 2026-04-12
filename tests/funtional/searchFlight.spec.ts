@@ -1,6 +1,6 @@
-import { test, expect } from '../src/fixture/pageFixtures';
-import { PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_1_5_YEAR_SELECT_RANGE,PERIOD_1_YEAR_SELECT_RANGE, PERIOD_2_YEAR_SELECT_RANGE } from '../src/data/selectRange';
-import { VALID_PROMO_CODES,INVALID_PROMO_CODES } from '../src/data/promo.data';
+import { test, expect } from '../../src/fixture/pageFixtures';
+import { PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE, PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_1_5_YEAR_SELECT_RANGE,PERIOD_1_YEAR_SELECT_RANGE, PERIOD_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
+import { VALID_PROMO_CODES,INVALID_PROMO_CODES } from '../../src/data/promo.data';
 
 test.describe('Search Flight', () => {
 

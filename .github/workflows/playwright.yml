@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 jobs:
   test:
     timeout-minutes: 60
@@ -23,9 +23,28 @@ jobs:
     - name: Prepare Allure categories
       if: ${{ !cancelled() }}
       run: cp categories.json allure-results/
+    - name: Load previous Allure history
+      if: ${{ !cancelled() }}
+      uses: actions/cache@v4
+      with:
+        path: allure-history
+        key: allure-history-${{ github.ref_name }}
+        restore-keys: |
+          allure-history-main
+          allure-history-
+    - name: Restore history into results
+      if: ${{ !cancelled() }}
+      run: |
+        mkdir -p allure-results/history
+        cp -r allure-history/* allure-results/history/ 2>/dev/null || true
     - name: Generate Allure report
       if: ${{ !cancelled() }}
       run: npx allure generate allure-results --clean -o allure-report
+    - name: Save Allure history for next run
+      if: ${{ !cancelled() }}
+      run: |
+        mkdir -p allure-history
+        cp -r allure-report/history/* allure-history/ 2>/dev/null || true
     - name: Upload Allure report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}

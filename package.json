@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "demo": "rm -rf allure-results && npx playwright test && cp categories.json allure-results/ && npx allure serve allure-results"
+    "demo": "rm -rf allure-results && npx playwright test && cp categories.json allure-results/ && npx allure serve allure-results",
+    "test:chromium": "npm run clean && npx playwright test --project=chromium"
   },
   "keywords": [],
   "author": "",
