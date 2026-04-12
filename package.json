@@ -2,7 +2,9 @@
   "name": "testbooking",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "demo": "rm -rf allure-results && npx playwright test && npx allure serve allure-results"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
