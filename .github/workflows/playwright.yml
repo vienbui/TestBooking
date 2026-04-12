@@ -20,6 +20,9 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       continue-on-error: true
+    - name: Prepare Allure categories
+      if: ${{ !cancelled() }}
+      run: cp categories.json allure-results/
     - name: Generate Allure report
       if: ${{ !cancelled() }}
       run: npx allure generate allure-results --clean -o allure-report
