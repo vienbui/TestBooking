@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Product Defects",
+    "description": "Known bugs in the application, tracked with BUG# references",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*BUG#.*"
+  },
+  {
+    "name": "Known Issues (fixme)",
+    "description": "Tests skipped due to known application defects",
+    "matchedStatuses": ["skipped"],
+    "messageRegex": ".*Known defect.*"
+  },
+  {
+    "name": "Test Defects",
+    "description": "Errors in test code itself (not product bugs)",
+    "matchedStatuses": ["broken"]
+  }
+]
