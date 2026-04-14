@@ -10,9 +10,11 @@ const XSS_PAYLOADS = [
 ];
 
 test.describe('Security', () => {
-
     test('[SEC-001] Promo code field does not execute injected scripts', async ({ homePage, page }) => {
-        test.fail(true, 'Known defect: application reflects unsanitised HTML in promo code response (XSS vulnerability)');
+        test.fail(
+            true,
+            'Known defect: application reflects unsanitised HTML in promo code response (XSS vulnerability)',
+        );
 
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
@@ -31,7 +33,8 @@ test.describe('Security', () => {
 
                 await page.waitForLoadState('domcontentloaded');
 
-                const bodyText = await page.textContent('body');
+                const bodyText = await page.locator('body').textContent();
+
                 const hasSearchResults = bodyText?.includes('Search Results');
                 const hasIllegalOperation = bodyText?.includes('The system performed an illegal operation');
 
@@ -45,9 +48,11 @@ test.describe('Security', () => {
 
                 if (hasSearchResults) {
                     const bodyHtml = await page.content();
-                    if (bodyHtml.includes('<script>alert') ||
+                    if (
+                        bodyHtml.includes('<script>alert') ||
                         bodyHtml.includes('onerror=alert') ||
-                        bodyHtml.includes('<svg onload')) {
+                        bodyHtml.includes('<svg onload')
+                    ) {
                         errors.push(`[XSS] Payload "${payload}" reflected unsanitised HTML in response`);
                     }
                 }

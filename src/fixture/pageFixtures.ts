@@ -10,24 +10,20 @@ export const test = base.extend<PageFixtures>({
     homePage: async ({ page }, use, testInfo) => {
         const browserErrors: string[] = [];
 
-        page.on('console', msg => {
+        page.on('console', (msg) => {
             if (msg.type() === 'error') {
                 browserErrors.push(`[${msg.type()}] ${msg.text()}`);
             }
         });
 
-        page.on('requestfailed', request => {
+        page.on('requestfailed', (request) => {
             browserErrors.push(`[REQUEST FAILED] ${request.url()} — ${request.failure()?.errorText}`);
         });
 
         await use(new HomePage(page));
 
         if (browserErrors.length > 0) {
-            await attachment(
-                'Browser Console Errors',
-                browserErrors.join('\n'),
-                'text/plain',
-            );
+            await attachment('Browser Console Errors', browserErrors.join('\n'), 'text/plain');
         }
 
         if (testInfo.status !== testInfo.expectedStatus) {

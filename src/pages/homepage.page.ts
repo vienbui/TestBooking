@@ -9,37 +9,34 @@ export class HomePage {
     readonly searchFormComponent: SearchFormComponent;
     readonly searchResultComponent: SearchResultComponent;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.homePageComponent = new HomePageComponent(page);
         this.searchFormComponent = new SearchFormComponent(page);
         this.searchResultComponent = new SearchResultComponent(page);
-
     }
 
-    async navigateToHomePage(){
+    async navigateToHomePage() {
         await this.page.goto('/VienBui');
     }
 
-    async verifyHomePageIsLoaded(){
+    async verifyHomePageIsLoaded() {
         await expect(this.page).toHaveURL('/VienBui');
     }
 
-    async verifyHeaderLogoIsVisible(){
+    async verifyHeaderLogoIsVisible() {
         await expect(this.homePageComponent.marsAirHeaderLogo).toBeVisible();
     }
 
-    async verifyReportIssueLinkIsVisible(){
+    async verifyReportIssueLinkIsVisible() {
         await expect(this.homePageComponent.reportIssueLink).toBeVisible();
     }
 
-    async verifyProblemDefinitionLinkIsVisible(){
+    async verifyProblemDefinitionLinkIsVisible() {
         await expect(this.homePageComponent.problemDefinitionLink).toBeVisible();
     }
 
-    async verifyPrivacyPolicyLinkIsVisible(){
+    async verifyPrivacyPolicyLinkIsVisible() {
         await expect(this.homePageComponent.privacyPolicyLink).toBeVisible();
-    }  
-    
+    }
 }
-    
