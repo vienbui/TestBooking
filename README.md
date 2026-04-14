@@ -1,51 +1,75 @@
 ### MarsAir — Flight booking QA automation
 
-This project includes End-to-end manual and automation tests and documentation for the **MarsAir** flight search web application (ThoughtWorks entry QA assessment). <br> The application lets users search for trips to Mars, apply promotional codes, and navigate between pages.
-<br> The goal is to validate key user flows such as: Searching for flights, Validating promo codes, Handling valid and invalid inputs.
+This project includes end-to-end manual and automation tests and documentation for the **MarsAir** flight search web application (ThoughtWorks entry QA assessment). <br> The application lets users search for trips to Mars, apply promotional codes, and navigate between pages.
+<br> The goal is to validate key user flows such as: searching for flights, validating promo codes, handling valid and invalid inputs — as well as non-functional quality attributes like performance, accessibility, security, and visual consistency.
+
+### Tech stack
+
+| Tool | Purpose |
+| --- | --- |
+| [Playwright](https://playwright.dev/) + TypeScript | Test automation framework |
+| [axe-core/playwright](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright) | Accessibility testing |
+| [Allure](https://docs.qameta.io/allure/) (`allure-playwright` + `allure-commandline`) | Test reporting with history and trends |
+| ESLint + Prettier | Linting and formatting |
+| GitHub Actions | CI pipeline |
+| dotenv | Environment variable management |
 
 ### Project structure
 
 ```
 TestBooking/
-├── .github/workflows/playwright.yml   # CI (GitHub Actions)
+├── .github/workflows/playwright.yml    # CI pipeline (multi-job with Allure)
 ├── doc/
-│   ├── requirement.md                 # Exercise instructions
-│   ├── spec.md                        # User stories & acceptance criteria
+│   ├── requirement.md                  # Exercise instructions
+│   ├── spec.md                         # User stories & acceptance criteria
 │   ├── Test-Plan-MarsAir-Booking-Flight.md
 │   └── questionsAndConcerns.md
 ├── src/
-│   ├── components/                    # UI sections (search form, results, header)
-│   ├── data/                        # Test data (dates, promo codes)
-│   ├── fixture/                     # Playwright fixtures (page objects)
-│   └── pages/
+│   ├── components/                     # UI section locators (header, search form, results)
+│   ├── data/                           # Test data (date ranges, promo codes)
+│   ├── fixture/                        # Playwright fixtures (homePage injection, failure attachments)
+│   └── pages/                          # Page objects (HomePage)
 ├── tests/
-│   └── searchFlight.spec.ts         # Automated specs
+│   ├── functional/
+│   │   └── searchFlight.spec.ts        # Search, navigation, promo code specs
+│   └── nonfunctional/
+│       ├── accessibility.spec.ts       # axe-core a11y checks
+│       ├── performance.spec.ts         # TTFB, FCP, load time thresholds
+│       ├── security.spec.ts            # XSS, security headers, auth
+│       └── visualRegression.spec.ts    # Full-page screenshot comparisons
+├── categories.json                     # Allure category rules
+├── eslint.config.mjs
 ├── playwright.config.ts
 └── package.json
-└── README.md
-
 ```
 
-### User stories under test
+### Test coverage
 
-| #   | Story                | Focus                                                     |
-| --- | -------------------- | --------------------------------------------------------- |
-| 1   | Basic search flow    | Departing/returning fields, schedule rules, seat messages |
-| 2   | Promotional codes    | Format `XX9-XXX-999`, check digit, discount messaging     |
-| 3   | Link to home page    | CTA and MarsAir logo navigation                           |
-| 4   | Invalid return dates | Return &lt; 1 year after departure                        |
+#### Functional tests (`tests/functional/`)
 
-Full acceptance criteria: [doc/spec.md](doc/spec.md).
+| Tag | Area | What it covers |
+| --- | --- | --- |
+| `@smoke` | Search flow | Home page loads correctly; departing/returning fields present |
+| `@e2e` | Date scenarios | Various flight periods (1y, 1.5y, 2y, >2y, <1y); seats/no-seats/invalid messages |
+| `@e2e` | Navigation | Logo → home; Back link → search form |
+| `@e2e` `@regression` | Promo codes | Valid/invalid codes, check digit validation, discount text, special chars |
+
+#### Non-functional tests (`tests/nonfunctional/`)
+
+| Tag | Area | What it covers |
+| --- | --- | --- |
+| `@performance` | Performance | TTFB, FCP, page load thresholds; search-to-results timing |
+| `@accessibility` | Accessibility | axe-core critical violation scans on home and results pages |
+| `@security` | Security | XSS payloads in promo field; HTTP security headers; root URL auth |
+| `@visual` | Visual regression | Full-page screenshot diffs (home, results variants, promo states) |
 
 ### My approach to testing
 
-This section responds to the exercise requirement to describe how the application was tested.
-
-1. **Requirements Analysis** <br> First of all, I read the instruction in the email carefully. After that, I explore the assignment link including the Problem definition, Privacy Policy and play around with the app to understand what need to be done and what expected outcome for this entry assessment. <br> Outcome of analyzing the Problem definition and playing around with the app, I have: <br> - Acceptance test for each requirement ( user story) <br> - I clarify ambiguities and undefined behaviors and document them in [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md).
-2. **Test Planning** <br> - After analyzed requirements, I started to draft the test plan ([doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md)) with scope, testing timeline, test types, environments <br> - Once I have a draft of test plan, I started to create test cases based on Acceptance criteria of each user story and the out come is a test case matrix ( priority, test type: manual/automation, test data). <br> - I used some test design techniques to define the test cases such as boundary value analysis andEquivalence partitioning techniques ( apply to flight schedule validation, tested varios period less than 1 year, exactly 1 year, 1.5 years, 2 years and over 2 years) to ensure correct behavior at and around boundary. I also used Exploratory technique to explore edge cases not cover in the spec.
-3. **Exploration Testing** <br> - After phase 2, I started to manual test and fill result to the list of test cases based on their priority. I also found some issues and logged them in the app’s **Report an issue** area. <br> - I also tracked the bug list under section #10 Highlight issues in the test plan.
-4. **Automation Strategy** <br> - I started to initial project and repo, using TypeScript and Playwright <br> - I defined the framework with page object model style layout for easier maintainability: pages compose components; fixtures inject homePage; data modules drive parameterized cases (date ranges in selectRange.ts, promo lists in promo.data.ts). <br> - P1 test cases were automated first <br> - Test cases that have known defects, I used test.fail() to document and track them.
-5. **CI** <br> - Use default value. GitHub Actions runs `npm ci`, installs browsers, and executes `npx playwright test`, uploading the HTML report as an artifact.
+1. **Requirements analysis** <br> Read the assignment instructions, explored the app, and derived acceptance criteria for each user story. Ambiguities and undefined behaviors are documented in [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md).
+2. **Test planning** <br> Drafted a test plan ([doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md)) covering scope, timelines, test types, and environments. Created a test case matrix using boundary value analysis and equivalence partitioning (e.g., flight schedule periods at and around 1-year, 1.5-year, 2-year boundaries). Used exploratory testing for edge cases beyond the spec.
+3. **Exploratory testing** <br> Manual test execution against the test case matrix, prioritized by risk. Issues found were logged in the app's **Report an issue** area and tracked under section #10 of the test plan.
+4. **Automation strategy** <br> Built a two-layer Page Object Model: pages compose components; fixtures inject `homePage`; data modules drive parameterized cases. P1 cases were automated first. Known defects are documented with `test.fail()`.
+5. **CI/CD** <br> GitHub Actions runs a multi-job pipeline: critical tests and non-functional tests execute in parallel, then a report job merges Allure results with trend history.
 
 ### Prerequisites
 
@@ -55,49 +79,106 @@ This section responds to the exercise requirement to describe how the applicatio
 ### Setup
 
 ```bash
-// Clone repository
-git clone <https://github.com/vienbui/TestBooking.git>
-cd <TestBooking>
+# Clone repository
+git clone https://github.com/vienbui/TestBooking.git
+cd TestBooking
 
-//Install dependencies
+# Install dependencies
 npm install
 
-// Install Playwright browsers
+# Install Playwright browsers
 npx playwright install --with-deps
 ```
+
+### Environment variables
+
+Create a `.env` file in the project root (gitignored):
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `BASE_URL` | `https://marsair.recruiting.thoughtworks.net` | Application base URL |
+| `CANDIDATE_PATH` | `/VienBui` | Candidate-specific path segment |
 
 ### Run tests
 
 ```bash
-// Run all tests
+# Run all tests (all browsers)
 npx playwright test
 
-// Run in headed mode
+# Run by tag
+npx playwright test --grep @smoke
+npx playwright test --grep @e2e
+npx playwright test --grep @security
+npx playwright test --grep @regression
+
+# Run a specific test file
+npx playwright test tests/functional/searchFlight.spec.ts
+
+# Run on a single browser
+npx playwright test --project=chromium
+
+# Run in headed mode
 npx playwright test --headed
-
-// Run specific test file
-npx playwright test tests/searchFlight.spec.ts
-
 ```
 
-`playwright.config.ts` sets `baseURL` to `https://marsair.recruiting.thoughtworks.net`. Tests navigate to the candidate path (e.g. `/VienBui`) via page objects.
+### Reporting
+
+The project uses both **Playwright HTML** and **Allure** reporters.
+
+```bash
+# Run all tests and open Allure report
+npm run demo
+
+# Run a specific suite with Allure
+npm run demo:smoke
+npm run demo:e2e
+npm run demo:security
+npm run demo:performance
+npm run demo:accessibility
+npm run demo:visual
+npm run demo:regression
+```
+
+Allure reports include trend history across runs. The `allure:clean` and `allure:prepare` scripts manage history backup and restoration between runs.
 
 ### CI
 
-On push or pull request to `main` or `master`, `.github/workflows/playwright.yml` installs dependencies, runs Playwright, and uploads `playwright-report/` (30-day retention).
+On push or pull request to `main`, `.github/workflows/playwright.yml` runs a three-job pipeline:
+
+1. **critical-tests** — runs `@smoke`, `@e2e`, and `@security` tagged tests
+2. **nonfunctional-tests** — runs `@performance`, `@accessibility`, and `@visual` tagged tests (continue-on-error)
+3. **report** — merges Allure results from both jobs, restores trend history from GitHub Actions cache, generates the Allure report, and uploads it as an artifact
+
+Both Playwright HTML and Allure reports are uploaded as downloadable artifacts.
+
+### Code quality
+
+```bash
+# Lint
+npm run lint
+npm run lint:fix
+
+# Format
+npm run format
+npm run format:check
+```
+
+ESLint is configured with TypeScript and Playwright plugins. Prettier handles formatting. `lint-staged` runs both on staged files.
 
 ### Issues and questions
 
 - All found issues are logged on [Issues in the MarsAir app](https://marsair.recruiting.thoughtworks.net/VienBui/issues)
-- All questions and concerns are tracked in [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md).
+- All questions and concerns are tracked in [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md)
 
 ### Documentation
 
-| Document                                                                           | Description                                                 |
-| ---------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [doc/requirement.md](doc/requirement.md)                                           | Exercise format and deliverables, described in Email        |
-| [doc/spec.md](doc/spec.md)                                                         | Backstory and user stories, described in Problem Definition |
-| [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) | Test plan and test case matrix, test case results           |
+| Document | Description |
+| --- | --- |
+| [doc/requirement.md](doc/requirement.md) | Exercise format and deliverables |
+| [doc/spec.md](doc/spec.md) | Backstory and user stories |
+| [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) | Test plan, test case matrix, and results |
+| [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md) | Open questions and ambiguities |
+
 
 ### Author
 
