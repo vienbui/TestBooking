@@ -3,6 +3,7 @@ import { HomePageComponent } from '../components/homepage.components';
 import { SearchFormComponent } from '../components/searchForm.component';
 import { SearchResultComponent } from '../components/searchResult.component';
 
+const CANDIDATE_PATH = process.env.CANDIDATE_PATH || '/VienBui';
 export class HomePage {
     readonly page: Page;
     readonly homePageComponent: HomePageComponent;
@@ -17,11 +18,11 @@ export class HomePage {
     }
 
     async navigateToHomePage() {
-        await this.page.goto('/VienBui');
+        await this.page.goto(CANDIDATE_PATH);
     }
 
     async verifyHomePageIsLoaded() {
-        await expect(this.page).toHaveURL('/VienBui');
+        await expect(this.page).toHaveURL(CANDIDATE_PATH);
     }
 
     async verifyHeaderLogoIsVisible() {

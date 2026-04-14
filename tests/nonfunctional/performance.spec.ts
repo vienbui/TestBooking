@@ -8,9 +8,11 @@ const PERF_THRESHOLDS = {
     searchResponse: 3000,
 };
 
+const CANDIDATE_PATH = process.env.CANDIDATE_PATH || '/VienBui';
+
 test.describe('Performance', () => {
     test('[PERF-001] Home page loads within acceptable thresholds', { tag: '@performance' }, async ({ page }) => {
-        await page.goto('/VienBui');
+        await page.goto(CANDIDATE_PATH);
 
         const perfMetrics = await page.evaluate(() => {
             const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
