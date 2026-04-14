@@ -10,7 +10,7 @@ const XSS_PAYLOADS = [
 ];
 
 test.describe('Security', () => {
-    test('[SEC-001] Promo code field does not execute injected scripts', async ({ homePage, page }) => {
+    test('[SEC-001] Promo code field does not execute injected scripts', { tag: ['@security', '@regression'] }, async ({ homePage, page }) => {
         test.fail(
             true,
             'Known defect: application reflects unsanitised HTML in promo code response (XSS vulnerability)',
@@ -66,7 +66,7 @@ test.describe('Security', () => {
         expect(errors, `Security vulnerabilities found:\n${errors.join('\n')}`).toHaveLength(0);
     });
 
-    test('[SEC-002] Response includes security headers', async ({ page }) => {
+    test('[SEC-002] Response includes security headers', { tag: ['@security', '@regression'] }, async ({ page }) => {
         const response = await page.goto('/VienBui');
         expect(response).not.toBeNull();
         const headers = response!.headers();
@@ -85,7 +85,7 @@ test.describe('Security', () => {
         });
     });
 
-    test('[SEC-003] Accessing root without user path returns 401', async ({ page }) => {
+    test('[SEC-003] Accessing root without user path returns 401', { tag: ['@security', '@regression'] }, async ({ page }) => {
         const response = await page.goto('https://marsair.recruiting.thoughtworks.net/');
         expect(response).not.toBeNull();
 

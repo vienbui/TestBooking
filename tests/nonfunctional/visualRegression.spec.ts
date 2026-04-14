@@ -5,14 +5,14 @@ import { VALID_PROMO_CODES, INVALID_PROMO_CODES } from '../../src/data/promo.dat
 const SCREENSHOT_OPTIONS = { maxDiffPixelRatio: 0.01 };
 
 test.describe('Visual Regression', () => {
-    test('[VR-001] Home page looks correct', async ({ homePage, page }) => {
+    test('[VR-001] Home page looks correct', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         await homePage.searchFormComponent.verifySearchFormIsVisible();
 
         await expect(page).toHaveScreenshot('home-page.png', SCREENSHOT_OPTIONS);
     });
 
-    test('[VR-002] Search results - seats available', async ({ homePage, page }) => {
+    test('[VR-002] Search results - seats available', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
         await homePage.searchFormComponent.searchFlight(departing, returning);
@@ -21,7 +21,7 @@ test.describe('Visual Regression', () => {
         await expect(page).toHaveScreenshot('search-results-seats-available.png', SCREENSHOT_OPTIONS);
     });
 
-    test('[VR-003] Search results - no seats available', async ({ homePage, page }) => {
+    test('[VR-003] Search results - no seats available', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE[0];
         await homePage.searchFormComponent.searchFlight(departing, returning);
@@ -30,7 +30,7 @@ test.describe('Visual Regression', () => {
         await expect(page).toHaveScreenshot('search-results-no-seats.png', SCREENSHOT_OPTIONS);
     });
 
-    test('[VR-004] Search results - invalid return date', async ({ homePage, page }) => {
+    test('[VR-004] Search results - invalid return date', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         await homePage.searchFormComponent.searchFlight('December', 'July');
         await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
@@ -38,7 +38,7 @@ test.describe('Visual Regression', () => {
         await expect(page).toHaveScreenshot('search-results-invalid-date.png', SCREENSHOT_OPTIONS);
     });
 
-    test('[VR-005] Search results - valid promo code applied', async ({ homePage, page }) => {
+    test('[VR-005] Search results - valid promo code applied', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
         const { code } = VALID_PROMO_CODES[0];
@@ -48,7 +48,7 @@ test.describe('Visual Regression', () => {
         await expect(page).toHaveScreenshot('search-results-promo-valid.png', SCREENSHOT_OPTIONS);
     });
 
-    test('[VR-006] Search results - invalid promo code', async ({ homePage, page }) => {
+    test('[VR-006] Search results - invalid promo code', { tag: '@visual' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
         const { code } = INVALID_PROMO_CODES[0];
