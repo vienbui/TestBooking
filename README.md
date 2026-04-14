@@ -20,12 +20,6 @@ This project includes end-to-end manual and automation tests and documentation f
 TestBooking/
 ├── .github/workflows/playwright.yml    # CI pipeline (multi-job with Allure)
 ├── doc/
-│   ├── conventions/                    # Team conventions (structure, locators, POM, tests, reviews)
-│   │   ├── 00-project-structure.md
-│   │   ├── 01-locator-strategy.md
-│   │   ├── 02-page-object.md
-│   │   ├── 03-test-writing.md
-│   │   └── 04-code-review.md
 │   ├── requirement.md                  # Exercise instructions
 │   ├── spec.md                         # User stories & acceptance criteria
 │   ├── Test-Plan-MarsAir-Booking-Flight.md
@@ -184,7 +178,7 @@ ESLint is configured with TypeScript and Playwright plugins. Prettier handles fo
 | [doc/spec.md](doc/spec.md) | Backstory and user stories |
 | [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) | Test plan, test case matrix, and results |
 | [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md) | Open questions and ambiguities |
-| [doc/conventions/](doc/conventions/) | Team conventions (project structure, locators, POM, test writing, code review) |
+
 
 ### Author
 
