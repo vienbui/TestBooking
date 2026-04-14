@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
 
 test.describe('Accessibility', () => {
-    test('[A11Y-001] Home page has no critical accessibility violations', async ({ page }) => {
+    test('[A11Y-001] Home page has no critical accessibility violations', { tag: '@accessibility' }, async ({ page }) => {
         await page.goto('/VienBui');
 
         const results = await new AxeBuilder({ page }).analyze();
@@ -21,7 +21,7 @@ test.describe('Accessibility', () => {
         });
     });
 
-    test('[A11Y-002] Search results page has no critical accessibility violations', async ({ homePage, page }) => {
+    test('[A11Y-002] Search results page has no critical accessibility violations', { tag: '@accessibility' }, async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
         await homePage.searchFormComponent.searchFlight(departing, returning);

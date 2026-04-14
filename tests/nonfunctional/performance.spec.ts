@@ -9,7 +9,7 @@ const PERF_THRESHOLDS = {
 };
 
 test.describe('Performance', () => {
-    test('[PERF-001] Home page loads within acceptable thresholds', async ({ page }) => {
+    test('[PERF-001] Home page loads within acceptable thresholds', { tag: '@performance' }, async ({ page }) => {
         await page.goto('/VienBui');
 
         const perfMetrics = await page.evaluate(() => {
@@ -42,7 +42,7 @@ test.describe('Performance', () => {
         }
     });
 
-    test('[PERF-002] Search returns results within acceptable time', async ({ homePage }) => {
+    test('[PERF-002] Search returns results within acceptable time', { tag: '@performance' }, async ({ homePage }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
 
