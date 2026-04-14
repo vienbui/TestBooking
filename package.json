@@ -12,7 +12,7 @@
         "demo:visual": "npm run allure:clean && PLAYWRIGHT_HTML_OPEN=never npx playwright test --grep @visual; npm run allure:prepare && npx allure serve allure-results",
         "allure:clean": "mkdir -p allure-history && cp -r allure-report/history/* allure-history/ 2>/dev/null; rm -rf allure-results allure-report; true",
         "allure:prepare": "mkdir -p allure-results/history && cp -r allure-history/* allure-results/history/ 2>/dev/null; cp categories.json allure-results/; true",
-        "test:chromium": "npm run clean && npx playwright test --project=chromium",
+        "test:chromium": "npm run allure:clean && npx playwright test --project=chromium",
         "test:smoke": "npx playwright test --grep @smoke",
         "test:e2e": "npx playwright test --grep @e2e",
         "test:security": "npx playwright test --grep @security",

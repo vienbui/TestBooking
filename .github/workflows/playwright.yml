@@ -8,6 +8,8 @@ jobs:
     critical-tests:
         timeout-minutes: 30
         runs-on: ubuntu-latest
+        env:
+            CANDIDATE_PATH: /VienBui
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
@@ -37,6 +39,8 @@ jobs:
     nonfunctional-tests:
         timeout-minutes: 30
         runs-on: ubuntu-latest
+        env:
+            CANDIDATE_PATH: /VienBui
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
