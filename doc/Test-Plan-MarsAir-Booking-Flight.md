@@ -14,13 +14,13 @@
 | ​                         | ​    | ​    | ​        | ​     |
 
 
-## 1. Overview
+### 1. Overview
 
 MarsAir has established itself as the newest commercial spaceship operator. MarsAir is a simple web application system for booking “flights to Mars” ( ThoughtWorks QA entry execise)
 
 ​
 
-## 2. Milestone and Testing Timeline
+### 2. Milestone and Testing Timeline
 
 ### Milestone
 
@@ -45,7 +45,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | 6   | Total                | 8.5                |
 
 
-## 3. Impacted Areas
+### 3. Impacted Areas
 
 > List the backend components/services impacted and their associated features/functional areas on the frontend to ensure that all affected areas are clearly identified and transparent among teams
 
@@ -60,7 +60,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | 6   | Date validation (Return/Departure)   |
 
 
-## 4. Test Scope
+### 4. Test Scope
 
 ### 4.1 In scope
 
@@ -89,7 +89,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 | 4   | Invalid Return Dates |     |
 
 
-## 5. Test Approach
+### 5. Test Approach
 
 ### 5.1 Test Types
 
