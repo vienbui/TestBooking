@@ -9,7 +9,6 @@ const PERF_THRESHOLDS = {
 };
 
 test.describe('Performance', () => {
-
     test('[PERF-001] Home page loads within acceptable thresholds', async ({ page }) => {
         await page.goto('/VienBui');
 
@@ -20,7 +19,7 @@ test.describe('Performance', () => {
                 ttfb: nav.responseStart - nav.requestStart,
                 domContentLoaded: nav.domContentLoadedEventEnd - nav.startTime,
                 loadComplete: nav.loadEventEnd - nav.startTime,
-                fcp: paint.find(e => e.name === 'first-contentful-paint')?.startTime ?? null,
+                fcp: paint.find((e) => e.name === 'first-contentful-paint')?.startTime ?? null,
             };
         });
 
@@ -43,7 +42,7 @@ test.describe('Performance', () => {
         }
     });
 
-    test('[PERF-002] Search returns results within acceptable time', async ({ homePage, page }) => {
+    test('[PERF-002] Search returns results within acceptable time', async ({ homePage }) => {
         await homePage.navigateToHomePage();
         const { departing, returning } = PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0];
 

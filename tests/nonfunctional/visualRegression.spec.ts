@@ -1,11 +1,10 @@
-import { test, expect } from '../../src/fixture/pageFixtures';  
+import { test, expect } from '../../src/fixture/pageFixtures';
 import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE, PERIOD_LESS_THAN_1_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
-import { VALID_PROMO_CODES, INVALID_PROMO_CODES } from '../../src/data/promo.data'; 
+import { VALID_PROMO_CODES, INVALID_PROMO_CODES } from '../../src/data/promo.data';
 
 const SCREENSHOT_OPTIONS = { maxDiffPixelRatio: 0.01 };
 
 test.describe('Visual Regression', () => {
-
     test('[VR-001] Home page looks correct', async ({ homePage, page }) => {
         await homePage.navigateToHomePage();
         await homePage.searchFormComponent.verifySearchFormIsVisible();

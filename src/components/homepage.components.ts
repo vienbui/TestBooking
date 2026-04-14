@@ -1,4 +1,4 @@
-import {Locator, Page} from '@playwright/test'
+import { Locator, Page } from '@playwright/test';
 
 export class HomePageComponent {
     readonly marsAirHeaderLogo: Locator;
@@ -6,15 +6,14 @@ export class HomePageComponent {
     readonly problemDefinitionLink: Locator;
     readonly privacyPolicyLink: Locator;
 
-    constructor(page:Page){
+    constructor(page: Page) {
         this.marsAirHeaderLogo = page.getByRole('link', { name: 'MarsAir' });
-        this.reportIssueLink = page.getByRole('link', { name: 'Report an issue' }); 
+        this.reportIssueLink = page.getByRole('link', { name: 'Report an issue' });
         this.problemDefinitionLink = page.getByRole('link', { name: 'Problem definition' });
         this.privacyPolicyLink = page.getByRole('link', { name: 'Privacy Policy' });
     }
 
-    async clickLogo(){
+    async clickLogo() {
         await this.marsAirHeaderLogo.click();
     }
 }
-

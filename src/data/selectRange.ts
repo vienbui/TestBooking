@@ -24,6 +24,4 @@ export const PERIOD_2_YEAR_SELECT_RANGE = [
     { departing: 'December', returning: 'December (two years from now)' },
 ];
 
-export const PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE = [
-    { departing: 'July', returning: 'December (two years from now)' },
-];
+export const PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE = [{ departing: 'July', returning: 'December (two years from now)' }];
