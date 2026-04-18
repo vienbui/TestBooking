@@ -9,6 +9,6 @@ export const VALID_PROMO_CODES = [
 
 export const INVALID_PROMO_CODES = [
     { code: 'AF3-FJK-419', reason: 'wrong check digit' },
-    { code: 'JJ7OPQ119',   reason: 'no dashes' },
+    { code: 'JJ7OPQ119', reason: 'no dashes' },
     { code: 'AF3-FJ!-418', reason: 'special characters' },
 ];

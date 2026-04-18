@@ -1,4 +1,4 @@
-import {Locator, Page, expect} from '@playwright/test'
+import { Locator, Page, expect } from '@playwright/test';
 
 export class SearchResultComponent {
     readonly page: Page;
@@ -10,75 +10,76 @@ export class SearchResultComponent {
     readonly promotionalCodeMessage: Locator;
     readonly invalidPromotionalCodeMessage: Locator;
     readonly backButton: Locator;
-    
-    constructor(page:Page){
+
+    constructor(page: Page) {
         this.page = page;
         this.searchResultTitle = page.getByRole('heading', { name: 'Search Results' });
         this.seatsAvailableMessage = page.getByText('Seats available');
         this.callNowMessage = page.getByText('Call now on 0800 MARSAIR to book!');
         this.noSeatsAvailableMessage = page.getByText('Sorry, there are no more seats available.');
-        this.invalidReturnDateMessage = page.getByText('Unfortunately, this schedule is not possible. Please try again.');
+        this.invalidReturnDateMessage = page.getByText(
+            'Unfortunately, this schedule is not possible. Please try again.',
+        );
         this.promotionalCodeMessage = page.locator('text=/Promotional code .+ used: .+% discount!/');
         this.invalidPromotionalCodeMessage = page.locator('text=/Sorry, code .+ is not valid/');
-        this.backButton = page.getByRole('link', { name: 'Back' }); 
-
+        this.backButton = page.getByRole('link', { name: 'Back' });
     }
-    async verifySearchResultTitleIsVisible(){
+    async verifySearchResultTitleIsVisible() {
         await expect(this.searchResultTitle).toBeVisible();
     }
 
-    async verifySeatsAvailableMessageIsVisible(){
+    async verifySeatsAvailableMessageIsVisible() {
         await expect(this.seatsAvailableMessage).toBeVisible();
     }
-    
-    async verifyCallNowMessageIsVisible(){
+
+    async verifyCallNowMessageIsVisible() {
         await expect(this.callNowMessage).toBeVisible();
     }
 
-    async verifyNoSeatsAvailableMessageIsVisible(){
+    async verifyNoSeatsAvailableMessageIsVisible() {
         await expect(this.noSeatsAvailableMessage).toBeVisible();
     }
 
-    async verifyInvalidReturnDateMessageIsVisible(){
+    async verifyInvalidReturnDateMessageIsVisible() {
         await expect(this.invalidReturnDateMessage).toBeVisible();
     }
-    
-    async verifyPromotionalCodeMessageIsVisible(){
+
+    async verifyPromotionalCodeMessageIsVisible() {
         await expect(this.promotionalCodeMessage).toBeVisible();
     }
 
-    async verifyInvalidPromotionalCodeMessageIsVisible(){
+    async verifyInvalidPromotionalCodeMessageIsVisible() {
         await expect(this.invalidPromotionalCodeMessage).toBeVisible();
     }
-    
-    async verifySeatsAvailableMessageIsNotVisible(){
-        await expect(this.seatsAvailableMessage).not.toBeVisible();
+
+    async verifySeatsAvailableMessageIsNotVisible() {
+        await expect(this.seatsAvailableMessage).toBeHidden();
     }
 
-    async verifyCallNowMessageIsNotVisible(){
-        await expect(this.callNowMessage).not.toBeVisible();
+    async verifyCallNowMessageIsNotVisible() {
+        await expect(this.callNowMessage).toBeHidden();
     }
 
-    async verifyBackButtonIsVisible(){
+    async verifyBackButtonIsVisible() {
         await expect(this.backButton).toBeVisible();
     }
 
-    async clickBackButton(){
+    async clickBackButton() {
         await this.backButton.click();
     }
-   
-    async verifyPromoAppliedMessage(code: string, discount: number){
+
+    async verifyPromoAppliedMessage(code: string, discount: number) {
         await expect(this.page.getByText(`Promotional code ${code} used: ${discount}% discount!`)).toBeVisible();
     }
 
-    async verifyPromoAppliedMessageIsNotVisible(){
-        await expect(this.page.getByText(`Promotional code`)).not.toBeVisible();
+    async verifyPromoAppliedMessageIsNotVisible() {
+        await expect(this.page.getByText(`Promotional code`)).toBeHidden();
     }
-    async verifyPromoInvalidMessage(code: string){
+    async verifyPromoInvalidMessage(code: string) {
         await expect(this.page.getByText(`Sorry, code ${code} is not valid`)).toBeVisible();
     }
 
-    async verifyPromoInvalidMessageIsNotVisible(){
-        await expect(this.page.getByText(`Sorry, code`)).not.toBeVisible();
+    async verifyPromoInvalidMessageIsNotVisible() {
+        await expect(this.page.getByText(`Sorry, code`)).toBeHidden();
     }
 }

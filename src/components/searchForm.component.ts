@@ -1,4 +1,4 @@
-import {Locator, Page, expect} from '@playwright/test'
+import { Locator, Page, expect } from '@playwright/test';
 
 export class SearchFormComponent {
     readonly page: Page;
@@ -9,7 +9,7 @@ export class SearchFormComponent {
     readonly promoCodeInput: Locator;
     readonly searchButton: Locator;
 
-    constructor(page:Page){
+    constructor(page: Page) {
         this.page = page;
         this.welcomeMessage = page.getByText('Welcome to MarsAir!');
         this.bookTicketNowMessage = page.getByText('Book a ticket to the red planet now!');
@@ -19,31 +19,31 @@ export class SearchFormComponent {
         this.searchButton = page.getByRole('button', { name: 'Search' });
     }
 
-    async verifyWelcomeMessageIsVisible(){
+    async verifyWelcomeMessageIsVisible() {
         await expect(this.welcomeMessage).toBeVisible();
     }
 
-    async verifyBookTicketNowMessageIsVisible(){
+    async verifyBookTicketNowMessageIsVisible() {
         await expect(this.bookTicketNowMessage).toBeVisible();
     }
 
-    async verifySelectDepartingOptionIsVisible(){
+    async verifySelectDepartingOptionIsVisible() {
         await expect(this.departingDropdown).toBeVisible();
     }
 
-    async verifySelectReturningOptionIsVisible(){
+    async verifySelectReturningOptionIsVisible() {
         await expect(this.returningDropdown).toBeVisible();
     }
 
-    async verifySearchButtonIsVisible(){
+    async verifySearchButtonIsVisible() {
         await expect(this.searchButton).toBeVisible();
     }
 
-    async verifyPromoCodeInputIsVisible(){
+    async verifyPromoCodeInputIsVisible() {
         await expect(this.promoCodeInput).toBeVisible();
     }
 
-    async verifySearchFormIsVisible(){
+    async verifySearchFormIsVisible() {
         await expect(this.welcomeMessage).toBeVisible();
         await expect(this.bookTicketNowMessage).toBeVisible();
         await expect(this.departingDropdown).toBeVisible();
@@ -52,13 +52,13 @@ export class SearchFormComponent {
         await expect(this.searchButton).toBeVisible();
     }
 
-    async verifyDefaultValue(){
+    async verifyDefaultValue() {
         await expect(this.departingDropdown).toHaveValue('');
         await expect(this.returningDropdown).toHaveValue('');
         await expect(this.promoCodeInput).toHaveValue('');
     }
 
-    async verifyAllDepartingOptionsAreVisible(){
+    async verifyAllDepartingOptionsAreVisible() {
         await expect(this.departingDropdown.locator('option')).toHaveText([
             'Select...',
             'July',
@@ -70,7 +70,7 @@ export class SearchFormComponent {
         ]);
     }
 
-    async verifyAllReturningOptionsAreVisible(){
+    async verifyAllReturningOptionsAreVisible() {
         await expect(this.returningDropdown.locator('option')).toHaveText([
             'Select...',
             'July',
@@ -82,18 +82,16 @@ export class SearchFormComponent {
         ]);
     }
 
-    async searchFlight(departing: string, returning: string){
+    async searchFlight(departing: string, returning: string) {
         await this.departingDropdown.selectOption(departing);
         await this.returningDropdown.selectOption(returning);
         await this.searchButton.click();
     }
 
-    async searchFlightWithPromoCode(departing: string, returning: string, promoCode: string){
+    async searchFlightWithPromoCode(departing: string, returning: string, promoCode: string) {
         await this.departingDropdown.selectOption(departing);
-        await this.returningDropdown.selectOption(returning); 
+        await this.returningDropdown.selectOption(returning);
         await this.promoCodeInput.fill(promoCode);
         await this.searchButton.click();
     }
-
-};
-
+}
