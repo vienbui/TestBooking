@@ -1,0 +1,29 @@
+name: Update Visual Baselines
+on:
+    workflow_dispatch:
+
+jobs:
+    update-snapshots:
+        runs-on: ubuntu-latest
+        env:
+            CANDIDATE_PATH: /VienBui
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+            - name: Install dependencies
+              run: npm ci
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
+            - name: Update snapshots
+              run: npx playwright test --grep "@visual" --update-snapshots
+            - name: Commit updated snapshots
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "github-actions@github.com"
+                  git add tests/
+                  git commit -m "update visual regression baselines for CI" || echo "No changes"
+                  git push
+        permissions:
+            contents: write
