@@ -131,8 +131,8 @@ jobs:
                           '',
                           '| Job | Result |',
                           '|-----|--------|',
-                          `| Critical (smoke + e2e + security) | ${critical} |`,
-                          `| Non-functional (perf + a11y + visual) | ${nonfunctional} |`,
+                          `| Critical (smoke + e2e ) | ${critical} |`,
+                          `| Non-functional (performance + security + visual + accessibility) | ${nonfunctional} |`,
                           '',
                           `[View full report](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
                         ].join('\n')
