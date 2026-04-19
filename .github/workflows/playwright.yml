@@ -58,6 +58,8 @@ jobs:
         if: ${{ !cancelled() }}
         needs: [critical-tests, nonfunctional-tests]
         runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write # to comment on PR
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
