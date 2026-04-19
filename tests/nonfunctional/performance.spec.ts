@@ -1,5 +1,6 @@
 import { test, expect } from '../../src/fixture/pageFixtures';
 import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
+import { CANDIDATE_PATH } from '../../src/data/env';
 
 const PERF_THRESHOLDS = {
     ttfb: 1500,
@@ -7,8 +8,6 @@ const PERF_THRESHOLDS = {
     pageLoad: 5000,
     searchResponse: 3000,
 };
-
-const CANDIDATE_PATH = process.env.CANDIDATE_PATH || '/VienBui';
 
 test.describe('Performance', () => {
     test('[PERF-001] Home page loads within acceptable thresholds', { tag: '@performance' }, async ({ page }) => {

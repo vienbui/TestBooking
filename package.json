@@ -16,7 +16,7 @@
         "test:smoke": "npx playwright test --grep @smoke",
         "test:e2e": "npx playwright test --grep @e2e",
         "test:security": "npx playwright test --grep @security",
-        "test:nonfunctional": "npx playwright test --grep @nonfunctional",
+        "test:nonfunctional": "npx playwright test --grep @performance|@accessibility|@visual|@security",
         "test:regression": "npx playwright test --grep @regression",
         "demo:regression": "npm run allure:clean && PLAYWRIGHT_HTML_OPEN=never npx playwright test --grep @regression; npm run allure:prepare && npx allure serve allure-results",
         "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
@@ -42,12 +42,6 @@
         "eslint-plugin-playwright": "^2.10.1",
         "prettier": "^3.8.2",
         "typescript-eslint": "^8.58.2"
-    },
-    "lint-staged": {
-        "*.{ts,js}": [
-            "eslint --fix",
-            "prettier --write"
-        ]
     },
     "dependencies": {
         "dotenv": "^17.4.2"

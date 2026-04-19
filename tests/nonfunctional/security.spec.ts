@@ -1,5 +1,6 @@
 import { test, expect } from '../../src/fixture/pageFixtures';
 import { PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE } from '../../src/data/selectRange';
+import { CANDIDATE_PATH } from '../../src/data/env';
 
 const XSS_PAYLOADS = [
     '<script>alert("xss")</script>',
@@ -8,8 +9,6 @@ const XSS_PAYLOADS = [
     "javascript:alert('xss')",
     "'; DROP TABLE flights; --",
 ];
-
-const CANDIDATE_PATH = process.env.CANDIDATE_PATH || '/VienBui';
 
 test.describe('Security', () => {
     test(
