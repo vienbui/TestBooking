@@ -28,13 +28,6 @@ jobs:
                   name: allure-results-critical
                   path: allure-results/
                   retention-days: 30
-            - name: Upload Playwright report
-              uses: actions/upload-artifact@v4
-              if: ${{ !cancelled() }}
-              with:
-                  name: playwright-report
-                  path: playwright-report/
-                  retention-days: 30
 
     nonfunctional-tests:
         timeout-minutes: 30
@@ -51,7 +44,7 @@ jobs:
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
             - name: Run non-functional tests
-              run: npx playwright test --grep "@performance|@accessibility|@visual"
+              run: npx playwright test --grep "@performance|@accessibility|@visual|@security"
               continue-on-error: true
             - name: Upload non-functional test results
               uses: actions/upload-artifact@v4

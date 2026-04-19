@@ -159,19 +159,23 @@ test.describe('Promotional Code', () => {
     });
 
     //PC-001: Verify system validates with valid promotional code
-    test(`[PC-001] Verify valid promotional code is applied`, { tag: ['@e2e', '@regression'] }, async ({ homePage }) => {
-        const { code, discount } = VALID_PROMO_CODES[0];
-        await homePage.searchFormComponent.searchFlightWithPromoCode(
-            PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing,
-            PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning,
-            code,
-        );
-        await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
-        await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
-        await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
-        await homePage.searchResultComponent.verifyBackButtonIsVisible();
-        await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
-    });
+    test(
+        `[PC-001] Verify valid promotional code is applied`,
+        { tag: ['@e2e', '@regression'] },
+        async ({ homePage }) => {
+            const { code, discount } = VALID_PROMO_CODES[0];
+            await homePage.searchFormComponent.searchFlightWithPromoCode(
+                PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing,
+                PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].returning,
+                code,
+            );
+            await homePage.searchResultComponent.verifySearchResultTitleIsVisible();
+            await homePage.searchResultComponent.verifySeatsAvailableMessageIsVisible();
+            await homePage.searchResultComponent.verifyCallNowMessageIsVisible();
+            await homePage.searchResultComponent.verifyBackButtonIsVisible();
+            await homePage.searchResultComponent.verifyPromoAppliedMessage(code, discount);
+        },
+    );
 
     //PC-002: Verify system validates with invalid wrong check digit promotional code
     test(
@@ -269,7 +273,7 @@ test.describe('Promotional Code', () => {
         `[PC-008] Verify system validates with invalid promotional code with special characters`,
         { tag: ['@e2e', '@regression'] },
         async ({ homePage }) => {
-            // test.fail(true, 'BUG#7: Should not accept Promo code containing special characters')
+            test.fail(true, 'BUG#7: Should not accept Promo code containing special characters');
             const { code } = INVALID_PROMO_CODES[2];
             await homePage.searchFormComponent.searchFlightWithPromoCode(
                 PERIOD_MORE_THAN_2_YEAR_SELECT_RANGE[0].departing,
