@@ -1,1 +1,0 @@
-[REQUEST FAILED] https://marsair.recruiting.thoughtworks.net/assets/bg.jpg — net::ERR_ABORTED

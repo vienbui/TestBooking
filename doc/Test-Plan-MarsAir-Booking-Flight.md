@@ -75,7 +75,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 - Payment/Credit card processing
 - Cross-selling
 - Content Management
-- Non-functional testing (performance, load, security)
+- Non-functional testing (performance, load)
 - Backend/API layer
 
 ### 4.3 User Stories under test
@@ -99,6 +99,7 @@ MarsAir has established itself as the newest commercial spaceship operator. Mars
 - UI/Navigation testing: routing
 - Cross browser testing
 - Exploration testing
+- Security testing: XSS injection, HTTP security headers, access control (non-blocking in CI)
 
 ### 5.2 Automation Strategy
 

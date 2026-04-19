@@ -5,14 +5,14 @@ This project includes end-to-end manual and automation tests and documentation f
 
 ### Tech stack
 
-| Tool | Purpose |
-| --- | --- |
-| [Playwright](https://playwright.dev/) + TypeScript | Test automation framework |
-| [axe-core/playwright](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright) | Accessibility testing |
-| [Allure](https://docs.qameta.io/allure/) (`allure-playwright` + `allure-commandline`) | Test reporting with history and trends |
-| ESLint + Prettier | Linting and formatting |
-| GitHub Actions | CI pipeline |
-| dotenv | Environment variable management |
+| Tool                                                                                              | Purpose                                |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| [Playwright](https://playwright.dev/) + TypeScript                                                | Test automation framework              |
+| [axe-core/playwright](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright) | Accessibility testing                  |
+| [Allure](https://docs.qameta.io/allure/) (`allure-playwright` + `allure-commandline`)             | Test reporting with history and trends |
+| ESLint + Prettier                                                                                 | Linting and formatting                 |
+| GitHub Actions                                                                                    | CI pipeline                            |
+| dotenv                                                                                            | Environment variable management        |
 
 ### Project structure
 
@@ -47,21 +47,21 @@ TestBooking/
 
 #### Functional tests (`tests/functional/`)
 
-| Tag | Area | What it covers |
-| --- | --- | --- |
-| `@smoke` | Search flow | Home page loads correctly; departing/returning fields present |
-| `@e2e` | Date scenarios | Various flight periods (1y, 1.5y, 2y, >2y, <1y); seats/no-seats/invalid messages |
-| `@e2e` | Navigation | Logo → home; Back link → search form |
-| `@e2e` `@regression` | Promo codes | Valid/invalid codes, check digit validation, discount text, special chars |
+| Tag                  | Area           | What it covers                                                                   |
+| -------------------- | -------------- | -------------------------------------------------------------------------------- |
+| `@smoke`             | Search flow    | Home page loads correctly; departing/returning fields present                    |
+| `@e2e`               | Date scenarios | Various flight periods (1y, 1.5y, 2y, >2y, <1y); seats/no-seats/invalid messages |
+| `@e2e`               | Navigation     | Logo → home; Back link → search form                                             |
+| `@e2e` `@regression` | Promo codes    | Valid/invalid codes, check digit validation, discount text, special chars        |
 
 #### Non-functional tests (`tests/nonfunctional/`)
 
-| Tag | Area | What it covers |
-| --- | --- | --- |
-| `@performance` | Performance | TTFB, FCP, page load thresholds; search-to-results timing |
-| `@accessibility` | Accessibility | axe-core critical violation scans on home and results pages |
-| `@security` | Security | XSS payloads in promo field; HTTP security headers; root URL auth |
-| `@visual` | Visual regression | Full-page screenshot diffs (home, results variants, promo states) |
+| Tag              | Area              | What it covers                                                    |
+| ---------------- | ----------------- | ----------------------------------------------------------------- |
+| `@performance`   | Performance       | TTFB, FCP, page load thresholds; search-to-results timing         |
+| `@accessibility` | Accessibility     | axe-core critical violation scans on home and results pages       |
+| `@security`      | Security          | XSS payloads in promo field; HTTP security headers; root URL auth |
+| `@visual`        | Visual regression | Full-page screenshot diffs (home, results variants, promo states) |
 
 ### My approach to testing
 
@@ -94,10 +94,10 @@ npx playwright install --with-deps
 
 Create a `.env` file in the project root (gitignored):
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `BASE_URL` | `https://marsair.recruiting.thoughtworks.net` | Application base URL |
-| `CANDIDATE_PATH` | `/VienBui` | Candidate-specific path segment |
+| Variable         | Default                                       | Purpose                         |
+| ---------------- | --------------------------------------------- | ------------------------------- |
+| `BASE_URL`       | `https://marsair.recruiting.thoughtworks.net` | Application base URL            |
+| `CANDIDATE_PATH` | `/VienBui`                                    | Candidate-specific path segment |
 
 ### Run tests
 
@@ -145,8 +145,8 @@ Allure reports include trend history across runs. The `allure:clean` and `allure
 
 On push or pull request to `main`, `.github/workflows/playwright.yml` runs a three-job pipeline:
 
-1. **critical-tests** — runs `@smoke`, `@e2e`, and `@security` tagged tests
-2. **nonfunctional-tests** — runs `@performance`, `@accessibility`, and `@visual` tagged tests (continue-on-error)
+1. **critical-tests** — runs `@smoke` and `@e2e` tagged tests
+2. **nonfunctional-tests** — runs `@performance`, `@accessibility`, `@visual`, and `@security` tagged tests (continue-on-error)
 3. **report** — merges Allure results from both jobs, restores trend history from GitHub Actions cache, generates the Allure report, and uploads it as an artifact
 
 Both Playwright HTML and Allure reports are uploaded as downloadable artifacts.
@@ -172,13 +172,12 @@ ESLint is configured with TypeScript and Playwright plugins. Prettier handles fo
 
 ### Documentation
 
-| Document | Description |
-| --- | --- |
-| [doc/requirement.md](doc/requirement.md) | Exercise format and deliverables |
-| [doc/spec.md](doc/spec.md) | Backstory and user stories |
+| Document                                                                           | Description                              |
+| ---------------------------------------------------------------------------------- | ---------------------------------------- |
+| [doc/requirement.md](doc/requirement.md)                                           | Exercise format and deliverables         |
+| [doc/spec.md](doc/spec.md)                                                         | Backstory and user stories               |
 | [doc/Test-Plan-MarsAir-Booking-Flight.md](doc/Test-Plan-MarsAir-Booking-Flight.md) | Test plan, test case matrix, and results |
-| [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md) | Open questions and ambiguities |
-
+| [doc/questionsAndConcerns.md](doc/questionsAndConcerns.md)                         | Open questions and ambiguities           |
 
 ### Author
 
