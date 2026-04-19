@@ -44,7 +44,7 @@ jobs:
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
             - name: Run non-functional tests
-              run: npx playwright test --grep "@performance|@accessibility|@security"
+              run: npx playwright test --grep "@performance|@accessibility|@visual|@security"
               continue-on-error: true
             - name: Upload non-functional test results
               uses: actions/upload-artifact@v4
@@ -59,7 +59,7 @@ jobs:
         needs: [critical-tests, nonfunctional-tests]
         runs-on: ubuntu-latest
         permissions:
-            pull-requests: write # to comment on PR
+            pull-requests: write
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
